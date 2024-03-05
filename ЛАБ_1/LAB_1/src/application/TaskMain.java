@@ -6,7 +6,7 @@ public class TaskMain {
     public static void main(String[] args) {
         Matrix matrix = null;
         try {
-            matrix = new Matrix(InOut.readMatrix("files/matrix_1.txt"));
+            matrix = new Matrix(InOut.readMatrix("files/matrix_2.txt"));
         } catch (FileInputException e) {
             System.out.println(e.getMessage());
         }
@@ -22,7 +22,7 @@ public class TaskMain {
         matrix = Matrices.toIncidenceMatrix(matrix);
         InOut.printMatrix(matrix);
 
-        System.out.println("Матрица смежности (для проверки):");
+        System.out.println("Матрица смежности (для проверки в обратную сторону):");
         matrix = Matrices.toAdjacencyMatrix(matrix);
         InOut.printMatrix(matrix);
     }
