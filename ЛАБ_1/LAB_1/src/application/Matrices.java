@@ -3,7 +3,7 @@ package application;
 import java.util.Arrays;
 
 public class Matrices {
-    public static Matrix toAdjacencyMatrix (Matrix matrix) {
+    public static Matrix toAdjacencyMatrix(Matrix matrix) {
         Matrix incidenceMatrix = null;
 
         try {
@@ -22,46 +22,53 @@ public class Matrices {
         int[] row;
         for (int i = 0; i < incidenceMatrix.getMatrix().length; i++) {
             row = incidenceMatrix.getRow(i);
-
-//            System.out.println(Arrays.toString(row));
-
             rowSum = findRowSum(row);
 
             if (rowSum == 0) {
-//                index_j = Arrays.binarySearch(row, -1);
-//                index_i = Arrays.binarySearch(row, 1);
-
                 index_j = indexOf(row, -1);
                 index_i = indexOf(row, 1);
-
-//                System.out.printf("i = %d\tj = %d\nsum = %d\n", index_i, index_j, rowSum);
-
                 adjacencyMatrix.setElement(index_i, index_j, 1);
             } else if (rowSum == 2) {
-//                index_j = Arrays.binarySearch(row, 1);
-//                index_i = Arrays.binarySearch(row, index_j + 1, row.length - 1, 1);
-
                 index_j = indexOf(row, 1);
                 index_i = indexOf(row, index_j + 1, row.length, 1);
-
-//                System.out.printf("i = %d\tj = %d\nsum = %d\n", index_i, index_j, rowSum);
-
                 adjacencyMatrix.setElement(index_i, index_j, 1);
                 adjacencyMatrix.setElement(index_j, index_i, 1);
             } else {
-//                index_i = Arrays.binarySearch(row, 1);
-
                 index_i = indexOf(row, 1);
-
-//                System.out.printf("i = %d\nsum = %d\n", index_i, rowSum);
-
                 adjacencyMatrix.setElement(index_i, index_i, 1);
             }
         }
         return adjacencyMatrix;
     }
 
-    //    static Matrix toIncidenceMatrix(Matrix matrix) {}
+    public static Matrix toIncidenceMatrix(Matrix matrix) {
+        Matrix adjacencyMatrix = null;
+
+        try {
+            adjacencyMatrix = (Matrix) matrix.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        Matrix incidenceMatrix = new Matrix(adjacencyMatrix.getV(), findArcAmount(matrix.getMatrix()));
+
+        int arcCounter = 0;
+
+        for (int i = 0; i < adjacencyMatrix.getV(); i++) {
+            for (int j = 0; j < adjacencyMatrix.getH(); j++) {
+                if (adjacencyMatrix.getElement(i, j) == 1) {
+                    if (i == j) {
+                        incidenceMatrix.setElement(i, arcCounter, 1);
+                    } else {
+                        incidenceMatrix.setElement(i, arcCounter, 1);
+                        incidenceMatrix.setElement(j, arcCounter, -1);
+                    }
+                    arcCounter++;
+                }
+            }
+        }
+        return incidenceMatrix;
+    }
 
     private static Matrix transpose(Matrix matrix) {
         Matrix newMatrix = new Matrix();
@@ -79,6 +86,14 @@ public class Matrices {
         int sum = 0;
         for (int value : row) {
             sum += value;
+        }
+        return sum;
+    }
+
+    private static int findArcAmount(int[][] matrix) {
+        int sum = 0;
+        for (int[] row : matrix) {
+            sum += findRowSum(row);
         }
         return sum;
     }

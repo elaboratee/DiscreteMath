@@ -1,6 +1,6 @@
-package application;
+package exceptions;
 
-class FileInputException extends Exception {
+public class FileInputException extends Exception {
     public FileInputException() {
     }
 

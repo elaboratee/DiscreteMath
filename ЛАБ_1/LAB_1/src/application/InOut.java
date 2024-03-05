@@ -1,5 +1,7 @@
 package application;
 
+import exceptions.FileInputException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
