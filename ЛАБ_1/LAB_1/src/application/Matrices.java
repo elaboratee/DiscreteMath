@@ -55,15 +55,27 @@ public class Matrices {
         int arcCounter = 0;
 
         for (int i = 0; i < adjacencyMatrix.getV(); i++) {
-            for (int j = 0; j < adjacencyMatrix.getH(); j++) {
-                if (adjacencyMatrix.getElement(i, j) == 1) {
-                    if (i == j) {
-                        incidenceMatrix.setElement(i, arcCounter, 1);
-                    } else {
-                        incidenceMatrix.setElement(i, arcCounter, 1);
-                        incidenceMatrix.setElement(j, arcCounter, -1);
-                    }
+            for (int j = i; j < adjacencyMatrix.getH(); j++) {
+                // диагональный элемент (петля)
+                if (i == j && adjacencyMatrix.getElement(i, j) == 1) {
+                    incidenceMatrix.setElement(i, arcCounter, 1);
                     arcCounter++;
+                } else {
+                    if (adjacencyMatrix.getElement(i, j) == 1 && adjacencyMatrix.getElement(j, i) == 1) {
+                        incidenceMatrix.setElement(i, arcCounter, 1);
+                        incidenceMatrix.setElement(j, arcCounter, 1);
+                        arcCounter++;
+                    } else {
+                        if (adjacencyMatrix.getElement(i, j) == 1) {
+                            incidenceMatrix.setElement(i, arcCounter, 1);
+                            incidenceMatrix.setElement(j, arcCounter, -1);
+                            arcCounter++;
+                        } else if (adjacencyMatrix.getElement(j, i) == 1) {
+                            incidenceMatrix.setElement(j, arcCounter, 1);
+                            incidenceMatrix.setElement(i, arcCounter, -1);
+                            arcCounter++;
+                        }
+                    }
                 }
             }
         }
@@ -90,12 +102,40 @@ public class Matrices {
         return sum;
     }
 
-    private static int findArcAmount(int[][] matrix) {
+    private static int findColumnSum(int column, int[][] matrix) {
         int sum = 0;
-        for (int[] row : matrix) {
-            sum += findRowSum(row);
+        for (int i = 0; i < matrix.length; i++) {
+            sum += matrix[i][column];
         }
         return sum;
+    }
+
+    private static int findArcAmount(int[][] matrix) {
+        int arcAmount = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = i; j < matrix[0].length; j++) {
+                if (matrix[i][j] == 1) {
+                    arcAmount += 1;
+                } else if (matrix[j][i] == 1) {
+                    arcAmount += 1;
+                }
+            }
+        }
+        return arcAmount;
+    }
+
+    public static int findDegreeOfApproach(int index, int[][] matrix) {
+        int degree = 0;
+        for (int i = 0; i < matrix[0].length; i++) {
+            if (matrix[index][i] == -1) {
+                degree++;
+            } else if (matrix[index][i] == 1) {
+                if (findColumnSum(i, matrix) != 0) {
+                    degree++;
+                }
+            }
+        }
+        return degree;
     }
 
     private static int indexOf(int[] array, int key) {
