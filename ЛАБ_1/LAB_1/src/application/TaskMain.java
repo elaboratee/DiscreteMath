@@ -6,7 +6,7 @@ public class TaskMain {
     public static void main(String[] args) {
         Matrix matrix = null;
         try {
-            matrix = new Matrix(InOut.readMatrix("files/matrix_1.txt"));
+            matrix = new Matrix(InOut.readMatrix("files/matrix_2.txt"));
         } catch (FileInputException e) {
             System.out.println(e.getMessage());
         }
