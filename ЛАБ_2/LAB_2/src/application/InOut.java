@@ -3,9 +3,10 @@ package application;
 import exceptions.FileInputException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
-class InOut {
+public class InOut {
     public static int[][] readMatrix(String filename) throws FileInputException {
         int[][] inMatrix;
         try {
@@ -49,6 +50,20 @@ class InOut {
                 sb.append(elString).append("\t");
             }
             sb.append("\n");
+        }
+        System.out.println(sb.toString());
+    }
+
+    public static void printArray(int[] array) {
+        if (array == null) {
+            System.out.println("Array is empty or invalid");
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            String elString = "L(x" + (i + 1) + ") = " + array[i];
+            sb.append(elString).append('\n');
         }
         System.out.println(sb.toString());
     }

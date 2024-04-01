@@ -7,16 +7,22 @@ package application;
 
 import exceptions.FileInputException;
 
+import java.util.Arrays;
+
 public class TaskMain {
     public static void main(String[] args) {
         Matrix matrix = null;
         try {
-            matrix = new Matrix(InOut.readMatrix("files/matrix_1.txt"));
+            matrix = new Matrix(InOut.readMatrix("files/first.txt"));
         } catch (FileInputException e) {
             System.out.println(e.getMessage());
         }
 
         System.out.println("Исходная матрица смежности:");
         InOut.printMatrix(matrix);
+
+        System.out.println("Пометки вершин:");
+        InOut.printArray(PathFinder.findShortestPath(matrix));
+//        System.out.println(Arrays.toString(PathFinder.findShortestPath(matrix)));
     }
 }
