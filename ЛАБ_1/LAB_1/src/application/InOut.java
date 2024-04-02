@@ -7,6 +7,12 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 class InOut {
+    /**
+     * Read matrix from file
+     * @param filename The path to the file
+     * @return The read matrix from file
+     * @throws FileInputException
+     */
     public static int[][] readMatrix(String filename) throws FileInputException {
         int[][] inMatrix;
         try {
@@ -35,6 +41,10 @@ class InOut {
         return inMatrix;
     }
 
+    /**
+     * Print matrix
+     * @param matrixObject Any object of the matrix
+     */
     public static void printMatrix(Matrix matrixObject) {
         if (matrixObject == null) {
             System.out.println("Matrix is empty or invalid");

@@ -3,6 +3,11 @@ package application;
 import java.util.Arrays;
 
 public class Matrices {
+    /**
+     * Translation from the incidence matrix to adjacency
+     * @param matrix - The incidence matrix
+     * @return The adjacency matrix
+     */
     public static Matrix toAdjacencyMatrix(Matrix matrix) {
         Matrix incidenceMatrix = null;
 
@@ -41,6 +46,11 @@ public class Matrices {
         return adjacencyMatrix;
     }
 
+    /**
+     * Translation from the adjacency matrix to incidence
+     * @param matrix The adjacency matrix
+     * @return The incidence matrix
+     */
     public static Matrix toIncidenceMatrix(Matrix matrix) {
         Matrix adjacencyMatrix = null;
 
@@ -50,7 +60,11 @@ public class Matrices {
             e.printStackTrace();
         }
 
-        Matrix incidenceMatrix = new Matrix(adjacencyMatrix.getV(), findArcAmount(matrix.getMatrix()));
+        int amountRows = adjacencyMatrix.getV();
+        int amountColumns = adjacencyMatrix.getH();
+        int amountArcs = findArcAmount(matrix.getMatrix());
+
+        Matrix incidenceMatrix = new Matrix(amountRows, amountArcs);
 
         int arcCounter = 0;
 
@@ -82,6 +96,11 @@ public class Matrices {
         return incidenceMatrix;
     }
 
+    /**
+     * Matrix transposition
+     * @param matrix Any object of the matrix
+     * @return The transposed of matrix
+     */
     private static Matrix transpose(Matrix matrix) {
         Matrix newMatrix = new Matrix();
         newMatrix.setMatrix(new int[matrix.getH()][matrix.getV()]);
@@ -94,6 +113,11 @@ public class Matrices {
         return newMatrix;
     }
 
+    /**
+     * Find the sum of the elements of the matrix row
+     * @param row The row of the matrix
+     * @return The sum of the elements of the matrix row
+     */
     private static int findRowSum(int[] row) {
         int sum = 0;
         for (int value : row) {
@@ -107,7 +131,7 @@ public class Matrices {
         for (int i = 0; i < matrix.length; i++) {
             sum += matrix[i][column];
         }
-        return sum;
+        return countArc;
     }
 
     private static int findArcAmount(int[][] matrix) {
@@ -147,6 +171,14 @@ public class Matrices {
         return -1;
     }
 
+    /**
+     * Find the index of an array element by its value in a certain segment
+     * @param array Any array
+     * @param fromIndex The beginning of the interval
+     * @param toIndex End of the interval
+     * @param key The value of the element
+     * @return
+     */
     private static int indexOf(int[] array, int fromIndex, int toIndex, int key) {
         for (int i = fromIndex; i < toIndex; i++) {
             if (array[i] == key) {
