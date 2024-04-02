@@ -7,7 +7,7 @@ package application;
 
 import exceptions.FileInputException;
 
-import java.util.Arrays;
+import java.sql.SQLOutput;
 
 public class TaskMain {
     public static void main(String[] args) {
@@ -21,8 +21,6 @@ public class TaskMain {
         System.out.println("Исходная матрица смежности:");
         InOut.printMatrix(matrix);
 
-        System.out.println("Пометки вершин:");
-        InOut.printArray(PathFinder.findShortestPath(matrix));
-//        System.out.println(Arrays.toString(PathFinder.findShortestPath(matrix)));
+        System.out.println(PathFinder.findShortestPath(matrix));
     }
 }

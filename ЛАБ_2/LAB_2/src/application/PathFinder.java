@@ -3,7 +3,25 @@ package application;
 import java.util.Arrays;
 
 public class PathFinder {
-    public static int[] findShortestPath(Matrix matrix) {
+    public static Path findShortestPath(Matrix matrix) {
+        Matrix clonedMatrix = null;
+
+        try {
+            clonedMatrix = (Matrix) matrix.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        // Расстановка пометок вершин
+        int[] labels = findLabels(clonedMatrix);
+
+        // Поиск кратчайшего пути
+        String pathString = findWay(labels, clonedMatrix);
+
+        return new Path(labels, pathString);
+    }
+
+    public static int[] findLabels(Matrix matrix) {
         Matrix clonedMatrix = null;
 
         try {
@@ -30,5 +48,38 @@ public class PathFinder {
         }
 
         return labels;
+    }
+
+    public static String findWay(int[] labels, Matrix matrix)
+            throws IllegalArgumentException {
+        Matrix clonedMatrix = null;
+
+        try {
+            clonedMatrix = (Matrix) matrix.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        // Размерность матрицы
+        final int SIZE = clonedMatrix.getH();
+
+        if (labels == null || labels.length != SIZE) {
+            throw new IllegalArgumentException("Label array is invalid");
+        }
+
+        // Поиск пути
+        StringBuilder sb = new StringBuilder();
+        sb.append(SIZE).append('x');
+        for (int j = SIZE - 1; j >= 0; j--) {
+            for (int i = SIZE - 1; i >= 0; i--) {
+                int currentElement = clonedMatrix.getElement(i, j);
+                if (currentElement != -1 &&
+                        labels[j] == labels[i] + currentElement) {
+                    sb.append('-').append(j).append('x');
+                }
+            }
+        }
+
+        return sb.reverse().toString();
     }
 }

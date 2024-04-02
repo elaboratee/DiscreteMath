@@ -3,7 +3,6 @@ package application;
 import exceptions.FileInputException;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class InOut {
@@ -54,7 +53,7 @@ public class InOut {
         System.out.println(sb.toString());
     }
 
-    public static void printArray(int[] array) {
+    public static void printLabels(int[] array) {
         if (array == null) {
             System.out.println("Array is empty or invalid");
             return;
