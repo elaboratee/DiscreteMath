@@ -7,8 +7,6 @@ package application;
 
 import exceptions.FileInputException;
 
-import java.sql.SQLOutput;
-
 public class TaskMain {
     public static void main(String[] args) {
         Matrix matrix = null;

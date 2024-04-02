@@ -73,10 +73,7 @@ public class PathFinder {
         for (int j = SIZE - 1; j >= 0; j--) {
             for (int i = SIZE - 1; i >= 0; i--) {
                 int currentElement = clonedMatrix.getElement(i, j);
-
-                boolean firstIf = (currentElement != -1);
-                boolean lastIf = (labels[j] == labels[i]  + currentElement);
-                if (firstIf && lastIf) {
+                if (currentElement != -1 && labels[j] == labels[i]  + currentElement) {
                     j = i; // переход на столбец смежной вершины
                     sb.append(';').append(j + 1).append('x');
                 }
