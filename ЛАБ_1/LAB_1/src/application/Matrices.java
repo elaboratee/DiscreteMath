@@ -68,16 +68,28 @@ public class Matrices {
 
         int arcCounter = 0;
 
-        for (int i = 0; i < amountRows; i++) {
-            for (int j = 0; j < amountColumns; j++) {
-                if (adjacencyMatrix.getElement(i, j) == 1) {
-                    if (i == j) {
-                        incidenceMatrix.setElement(i, arcCounter, 1);
-                    } else {
-                        incidenceMatrix.setElement(i, arcCounter, 1);
-                        incidenceMatrix.setElement(j, arcCounter, -1);
-                    }
+        for (int i = 0; i < adjacencyMatrix.getV(); i++) {
+            for (int j = i; j < adjacencyMatrix.getH(); j++) {
+                // диагональный элемент (петля)
+                if (i == j && adjacencyMatrix.getElement(i, j) == 1) {
+                    incidenceMatrix.setElement(i, arcCounter, 1);
                     arcCounter++;
+                } else {
+                    if (adjacencyMatrix.getElement(i, j) == 1 && adjacencyMatrix.getElement(j, i) == 1) {
+                        incidenceMatrix.setElement(i, arcCounter, 1);
+                        incidenceMatrix.setElement(j, arcCounter, 1);
+                        arcCounter++;
+                    } else {
+                        if (adjacencyMatrix.getElement(i, j) == 1) {
+                            incidenceMatrix.setElement(i, arcCounter, 1);
+                            incidenceMatrix.setElement(j, arcCounter, -1);
+                            arcCounter++;
+                        } else if (adjacencyMatrix.getElement(j, i) == 1) {
+                            incidenceMatrix.setElement(j, arcCounter, 1);
+                            incidenceMatrix.setElement(i, arcCounter, -1);
+                            arcCounter++;
+                        }
+                    }
                 }
             }
         }
@@ -114,25 +126,42 @@ public class Matrices {
         return sum;
     }
 
-    /**
-     * Find the amount of the arcs of the matrix
-     * @param matrix The adjacency matrix
-     * @return The number of arcs in the incident matrix
-     */
-    private static int findArcAmount(int[][] matrix) {
-        int countArc = 0;
-        for (int[] row : matrix) {
-            countArc += findRowSum(row);
+    private static int findColumnSum(int column, int[][] matrix) {
+        int sum = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            sum += matrix[i][column];
         }
         return countArc;
     }
 
-    /**
-     * Find the index of an array element by its value
-     * @param array Any array
-     * @param key The value of the element
-     * @return The index of the element
-     */
+    private static int findArcAmount(int[][] matrix) {
+        int arcAmount = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = i; j < matrix[0].length; j++) {
+                if (matrix[i][j] == 1) {
+                    arcAmount += 1;
+                } else if (matrix[j][i] == 1) {
+                    arcAmount += 1;
+                }
+            }
+        }
+        return arcAmount;
+    }
+
+    public static int findDegreeOfApproach(int index, int[][] matrix) {
+        int degree = 0;
+        for (int i = 0; i < matrix[0].length; i++) {
+            if (matrix[index][i] == -1) {
+                degree++;
+            } else if (matrix[index][i] == 1) {
+                if (findColumnSum(i, matrix) != 0) {
+                    degree++;
+                }
+            }
+        }
+        return degree;
+    }
+
     private static int indexOf(int[] array, int key) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == key) {

@@ -22,8 +22,10 @@ public class TaskMain {
         matrix = Matrices.toIncidenceMatrix(matrix);
         InOut.printMatrix(matrix);
 
-        System.out.println("Матрица смежности (для проверки в обратную сторону):");
-        matrix = Matrices.toAdjacencyMatrix(matrix);
-        InOut.printMatrix(matrix);
+        StringBuilder sb = new StringBuilder();
+        System.out.println("Полустепени захода:");
+        for (int i = 0; i < matrix.getV(); i++) {
+            System.out.printf("d-x%d = %d\n", i + 1, Matrices.findDegreeOfApproach(i, matrix.getMatrix()));
+        }
     }
 }
