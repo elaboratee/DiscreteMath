@@ -74,11 +74,11 @@ public class PathFinder {
             for (int i = SIZE - 1; i >= 0; i--) {
                 int currentElement = clonedMatrix.getElement(i, j);
 
-                boolean FirstIf = (currentElement != -1);
-                boolean LastIf = (labels[j] == labels[i] + currentElement);
-
-                if (FirstIf && LastIf) {
-                    sb.append(';').append(j).append('x');
+                boolean firstIf = (currentElement != -1);
+                boolean lastIf = (labels[j] == labels[i]  + currentElement);
+                if (firstIf && lastIf) {
+                    j = i; // переход на столбец смежной вершины
+                    sb.append(';').append(j + 1).append('x');
                 }
             }
         }

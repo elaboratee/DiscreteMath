@@ -17,7 +17,6 @@ public class TaskMain {
         } catch (FileInputException e) {
             System.out.println(e.getMessage());
         }
-
         System.out.println("Исходная матрица смежности:");
         InOut.printMatrix(matrix);
 
