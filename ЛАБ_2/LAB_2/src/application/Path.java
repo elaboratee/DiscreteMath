@@ -44,7 +44,11 @@ public class Path {
             String elString = "L(x" + (i + 1) + ") = " + labels[i];
             sb.append(elString).append('\n');
         }
-        sb.append("Кратчайший путь: ").append(pathString);
+        int lastElement = labels.length;
+        String elString = "\nL(M) = " + labels[lastElement-1];
+        sb.append(elString).append('\n');
+
+        sb.append("Кратчайший путь: ").append("M(x1, x" + labels.length + ") = {").append(pathString).append("}");
 
         return sb.toString();
     }

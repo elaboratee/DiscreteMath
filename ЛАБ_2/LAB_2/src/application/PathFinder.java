@@ -69,17 +69,19 @@ public class PathFinder {
 
         // Поиск пути
         StringBuilder sb = new StringBuilder();
-        sb.append(SIZE).append('x');
+        sb.append(SIZE).append("x");
         for (int j = SIZE - 1; j >= 0; j--) {
             for (int i = SIZE - 1; i >= 0; i--) {
                 int currentElement = clonedMatrix.getElement(i, j);
-                if (currentElement != -1 &&
-                        labels[j] == labels[i] + currentElement) {
-                    sb.append('-').append(j).append('x');
+
+                boolean FirstIf = (currentElement != -1);
+                boolean LastIf = (labels[j] == labels[i] + currentElement);
+
+                if (FirstIf && LastIf) {
+                    sb.append(';').append(j).append('x');
                 }
             }
         }
-
         return sb.reverse().toString();
     }
 }
