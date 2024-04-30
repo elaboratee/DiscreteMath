@@ -1,4 +1,6 @@
-package application;
+package util;
+
+import type.Matrix;
 
 public class Matrices {
     /**
@@ -162,9 +164,18 @@ public class Matrices {
         return degree;
     }
 
-    private static int indexOf(int[] array, int key) {
+    public static int indexOf(int[] array, int key) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == key) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static int indexOf(int[] array, int key, int excluding) {
+        for (int i = 0; i < array.length; i++) {
+            if (i != excluding && array[i] == key) {
                 return i;
             }
         }
@@ -179,7 +190,7 @@ public class Matrices {
      * @param key The value of the element
      * @return
      */
-    private static int indexOf(int[] array, int fromIndex, int toIndex, int key) {
+    public static int indexOf(int[] array, int fromIndex, int toIndex, int key) {
         for (int i = fromIndex; i < toIndex; i++) {
             if (array[i] == key) {
                 return i;
