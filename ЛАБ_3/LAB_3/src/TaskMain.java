@@ -5,11 +5,8 @@ import type.SpanningTree;
 import util.Graphs;
 import util.InOut;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class TaskMain {
 
@@ -36,9 +33,12 @@ public class TaskMain {
 
         boolean[] isVisited = spanningTree.getTags();
 
+        int treeLength = spanningTree.getLength();
+
         System.out.println("ПОЛУЧЕННОЕ ОСТОВНОЕ ДЕРЕВО");
         System.out.println("Множество вершин: " + vertexesList);
         System.out.println("Множество ребер: " + edgesList);
         System.out.println("Пометки вершин: " + Arrays.toString(isVisited));
+        System.out.println("Длина остовного дерева: " + treeLength);
     }
 }

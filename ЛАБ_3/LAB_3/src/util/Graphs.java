@@ -21,6 +21,7 @@ public class Graphs {
         ArrayList<Integer> vertexes = new ArrayList<>(); // ArrayList of added to the spanning tree vertexes
         ArrayList<Edge> edges = new ArrayList<>(); // ArrayList of the spanning tree output edges (will be returned)
         boolean[] tags = new boolean[matrix.getV()]; // Array of vertex boolean tags
+        int length = 0;
 
         vertexes.add(0);  // Add first vertex of the spanning tree (always vertex with index = 1)
         tags[0] = true; // Set first vertex tag
@@ -50,7 +51,8 @@ public class Graphs {
             tags[indexOfMinEnd] = true;
             vertexes.add(indexOfMinEnd);
             edges.add(new Edge(indexOfMinStart, indexOfMinEnd));
+            length += minEdgeLength;
         }
-        return new SpanningTree(vertexes, edges, tags);
+        return new SpanningTree(vertexes, edges, tags, length);
     }
 }
