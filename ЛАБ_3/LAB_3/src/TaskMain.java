@@ -26,17 +26,15 @@ public class TaskMain {
         assert matrix != null;
         SpanningTree spanningTree = Graphs.primaKruskal(matrix);
 
-        ArrayList<Integer> vertexes = spanningTree.getVertexes();
-        ArrayList<Edge> edges = spanningTree.getEdges();
-        boolean[] isVisited = spanningTree.getTags();
-
-        List<String> vertexesList = vertexes.stream()
+        List<String> vertexesList = spanningTree.getVertexes().stream()
                 .map(v -> "x" + (v + 1))
                 .toList();
 
-        List<Edge> edgesList = edges.stream()
+        List<Edge> edgesList = spanningTree.getEdges().stream()
                 .map(edge -> new Edge(edge.getSourceIndex() + 1, edge.getTargetIndex() + 1))
                 .toList();
+
+        boolean[] isVisited = spanningTree.getTags();
 
         System.out.println("ПОЛУЧЕННОЕ ОСТОВНОЕ ДЕРЕВО");
         System.out.println("Множество вершин: " + vertexesList);
