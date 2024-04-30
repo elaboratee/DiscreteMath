@@ -13,7 +13,7 @@ public class TaskMain {
     public static void main(String[] args) {
         Matrix matrix = null;
         try {
-            matrix = new Matrix(InOut.readMatrix("files/first.txt"));
+            matrix = new Matrix(InOut.readMatrix("files/second.txt"));
         } catch (FileInputException e) {
             System.out.println(e.getMessage());
         }
